@@ -1,9 +1,12 @@
 'use strict';
 
 const express = require('express');
+const fs = require('fs');
+const cors = require('cors');
 const app = express();
 
-// define endpoint for exercise 1 here
+app.use(cors());
+
 app.get('/math/circle/:r', (req, res) => {
 //TODO1
   //cm4_1.1
@@ -43,7 +46,7 @@ app.get('/math/rectangle/:w/:h', (req, res) => {
 app.get('/math/power/:base/:exponent', (req, res) => {
   const base = parseFloat(req.params.base);
   const exponent = parseFloat(req.params.exponent);
-  const rootQuery = req.query.root === 'true'; 
+  const rootQuery = req.query.root === 'true';
 
   // Validate input
   if (isNaN(base) || isNaN(exponent)) {
@@ -61,9 +64,33 @@ app.get('/math/power/:base/:exponent', (req, res) => {
   res.json(response);
 });
 //TODO2
+//cm2_1(BE)
+const jokesData = JSON.parse(fs.readFileSync('./jokes.json', 'utf8'));
 
+app.get('/jokebook/categories', (req, res) => {
+  res.json(jokesData.categories);
+});
 
-//TODO3
+app.get('/jokebook/joke/:category', (req, res) => {
+  const category = req.params.category;
+
+  if (!jokesData.categories.includes(category)) {
+    return res.status(400).json({ error: `no jokes for category ${category}` });
+  }
+
+  let jokeList;
+
+  if (category === 'funnyJoke') {
+    jokeList = jokesData.funnyJoke;
+  } else if (category === 'lameJoke') {
+    jokeList = jokesData.lameJoke;
+  }
+
+  const randomJoke = jokeList[Math.floor(Math.random() * jokeList.length)];
+
+  res.json(randomJoke);
+});
+//cm4_2.1(FE)
 
 
 const PORT = process.env.PORT || 3000;

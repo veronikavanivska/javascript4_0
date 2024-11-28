@@ -1,0 +1,12 @@
+{
+  "categories": ["funnyJoke", "lameJoke"],
+  "funnyJoke": [
+    { "joke": "Dlaczego komputer poszedł do lekarza?", "response": "Bo złapał wirusa!" },
+    { "joke": "Dlaczego komputer nie może być głodny?", "response": "Bo ma pełną pamięć!" },
+    { "joke": "Co mówi jeden bit do drugiego?", "response": "Trzymaj się, zaraz będzie zderzenie!" }
+  ],
+  "lameJoke": [
+    { "joke": "Dlaczego programiści preferują noc?", "response": "Bo w nocy jest mniej błędów!" },
+    { "joke": "Jak nazywa się bardzo szybki programista?", "response": "Błyskawica!" }
+  ]
+}

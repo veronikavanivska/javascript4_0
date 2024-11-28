@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Jokes</title>
+</head>
+<body>
+<h1>Get a Random Joke</h1>
+
+<button id="funnyJokeBtn">Get Funny Joke</button>
+<button id="lameJokeBtn">Get Lame Joke</button>
+
+<div id="jokeContainer">
+    <p id="jokeText">Your joke will appear here...</p>
+</div>
+
+<script>
+    document.getElementById('funnyJokeBtn').addEventListener('click', function() {
+        fetchRandomJoke('funnyJoke');
+    });
+
+    document.getElementById('lameJokeBtn').addEventListener('click', function() {
+        fetchRandomJoke('lameJoke');
+    });
+
+    function fetchRandomJoke(category) {
+        fetch(`http://localhost:3000/jokebook/joke/${category}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    document.getElementById('jokeText').textContent = data.error;
+                } else {
+                    document.getElementById('jokeText').textContent = `${data.joke} - ${data.response}`;
+                }
+            })
+            .catch(error => {
+                document.getElementById('jokeText').textContent = 'Error fetching joke!';
+            });
+    }
+</script>
+</body>
+</html>
